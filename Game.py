@@ -77,9 +77,7 @@ class Game:
             self.render()  # Малювання
 
             self.clock.tick(60)  # Обмеження FPS до 60
-
         pygame.quit()
-
 
 # Запуск гри
 if __name__ == "__main__":
