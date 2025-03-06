@@ -1,6 +1,8 @@
 import pygame
 import sys
 from Game import Game
+from Settings import Settings
+from Settings import SettingsScreen
 
 pygame.init()
 
@@ -24,8 +26,10 @@ def main_menu():
     clock = pygame.time.Clock()
     running = True
 
+    settings = Settings()
+
     while running:
-        screen.fill(BG_COLOR)
+        screen.fill(settings.background_color)
 
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
@@ -59,6 +63,25 @@ def main_menu():
                     #running = False
                 if settings_button.collidepoint(event.pos):
                     print("Перехід до налаштувань!")
+                    settings = Settings()
+                    settings_screen = SettingsScreen(screen, settings)
+
+                    # Запускаємо цикл екрану налаштувань
+                    settings_running = True
+                    while settings_running:
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                pygame.quit()
+                                sys.exit()
+
+                            # Обробка подій у налаштуваннях
+                            result = settings_screen.handle_events(event)
+                            if result == "main_menu":
+                                settings_running = False  # Вихід з екрану налаштувань
+
+                        settings_screen.draw()
+                        pygame.display.update()
+
                 if quit_button.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
