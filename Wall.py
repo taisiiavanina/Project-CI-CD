@@ -6,7 +6,7 @@ class Wall:
     Represents a collection of blocks forming a wall.
     """
 
-    def __init__(self, block_width=50, block_height=20):
+    def __init__(self, difficulty, block_width=50, block_height=20):
         """
         Initializes the wall with default difficulty ('easy').
         Parameters:
