@@ -17,7 +17,7 @@ class Wall:
         self.blocks = []
         self.block_width = block_width
         self.block_height = block_height
-        self.difficulty = "easy"  # За замовчуванням легкий рівень
+        self.difficulty = difficulty
         self.generate_blocks()
 
     def generate_blocks(self):
@@ -42,6 +42,7 @@ class Wall:
                 x = col * (self.block_width + 10) + 10  # Відступи між блоками
                 y = row * (self.block_height + 10) + 50  # Верхній відступ
                 self.blocks.append(Block(x, y, self.block_width, self.block_height))
+
 
     def set_difficulty(self, difficulty):
         """
