@@ -57,9 +57,12 @@ class Ball:
                 self.dx = math.copysign(self.speed, self.dx)
                 self.dy = math.copysign(self.speed, self.dy)
 
-        # Якщо м'ячик впав нижче екрану — ігровий кінець
         if self.y > screen_height:
             return False  # Гра закінчена
+
+        if not wall.blocks:  # Якщо немає блоків
+            return "win"  # Перемога
+
         return True  # Гра триває
 
     def draw(self, screen):
