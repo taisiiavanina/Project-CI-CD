@@ -3,6 +3,8 @@ import sys
 from Game import Game
 from Settings import Settings
 from Settings import SettingsScreen
+from Complexity import Complexity
+from Wall import Wall
 
 pygame.init()
 
@@ -22,11 +24,12 @@ def draw_button(text, x, y, width, height, color):
     text_surface = font.render(text, True, (0, 0, 0))
     screen.blit(text_surface, (x + (width - text_surface.get_width()) // 2, y + (height - text_surface.get_height()) // 2))
 
-def main_menu():
+
+def main_menu(selected_difficulty):
     clock = pygame.time.Clock()
     running = True
-
     settings = Settings()
+    settings_screen = SettingsScreen(screen, settings)
 
     while running:
         screen.fill(settings.background_color)
@@ -57,16 +60,15 @@ def main_menu():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if start_button.collidepoint(event.pos):
-                    print("Гра починається!")
-                    game = Game()
+                    print(f"Гра починається! Складність: {selected_difficulty}")
+                    game = Game(selected_difficulty, settings)
                     game.game_loop()
-                    #running = False
+
+
+
                 if settings_button.collidepoint(event.pos):
                     print("Перехід до налаштувань!")
-                    settings = Settings()
-                    settings_screen = SettingsScreen(screen, settings)
 
-                    # Запускаємо цикл екрану налаштувань
                     settings_running = True
                     while settings_running:
                         for event in pygame.event.get():
@@ -74,13 +76,16 @@ def main_menu():
                                 pygame.quit()
                                 sys.exit()
 
-                            # Обробка подій у налаштуваннях
                             result = settings_screen.handle_events(event)
                             if result == "main_menu":
-                                settings_running = False  # Вихід з екрану налаштувань
+                                settings_running = False
 
                         settings_screen.draw()
                         pygame.display.update()
+
+                    # Після виходу з налаштувань оновлюємо фон
+                    screen.fill(settings.background_color)
+                    pygame.display.update()
 
                 if quit_button.collidepoint(event.pos):
                     pygame.quit()
@@ -89,4 +94,10 @@ def main_menu():
         pygame.display.update()
         clock.tick(60)
 
-main_menu()
+
+# Спочатку користувач обирає складність
+complexity = Complexity()
+complexity.select_difficulty()  # Метод для вибору складності
+selected_difficulty = complexity.get_difficulty()  # Отримуємо вибраний рівень складності
+
+main_menu(selected_difficulty)
