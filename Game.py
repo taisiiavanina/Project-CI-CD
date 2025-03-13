@@ -22,7 +22,7 @@ class Game:
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Arkanoid")
-        self.paused = False  # Pause state
+        self.paused = False
 
         # Font for displaying score
         self.font = pygame.font.Font(None, 36)
@@ -58,9 +58,11 @@ class Game:
         self.screen.blit(text, (SCREEN_WIDTH // 2 - text.get_width() // 2, SCREEN_HEIGHT // 2))
         pygame.display.flip()
 
-        pygame.time.delay(3000)  # Пауза перед поверненням у меню
-        self.__init__()  # Перезапускаємо гру (повертаємось у меню)
-        self.game_loop()  # Запускаємо знову основний цикл гри
+        pygame.time.delay(3000)
+
+        from Homescreen import main_menu
+        main_menu(self.difficulty)
+
 
     def render(self):
         """
@@ -78,7 +80,7 @@ class Game:
         if self.paused:
             pause_font = pygame.font.Font(None, 74)
             pause_text = pause_font.render("PAUSE", True, (255, 255, 255))
-            self.screen.blit(pause_text, (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 30))
+            self.screen.blit(pause_text, (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2))
 
         pygame.display.flip()
 
@@ -104,7 +106,6 @@ class Game:
         pygame.quit()
 
 
-# Run the game
 if __name__ == "__main__":
     settings = Settings()
     game = Game(settings=settings)
