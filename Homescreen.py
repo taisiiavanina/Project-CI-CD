@@ -40,8 +40,6 @@ def draw_button(text, x, y, width, height, color):
 def main_menu(selected_difficulty):
     """
     Displays the main menu with options to start the game, access settings, or quit.
-
-    :param selected_difficulty: The selected difficulty level of the game.
     """
     clock = pygame.time.Clock()
     running = True
@@ -56,32 +54,18 @@ def main_menu(selected_difficulty):
         settings_button = pygame.Rect(300, 300, 200, 50)
         quit_button = pygame.Rect(300, 400, 200, 50)
 
-        if start_button.collidepoint(mouse_x, mouse_y):
-            draw_button("Start", 300, 200, 200, 50, HOVER_COLOR)
-        else:
-            draw_button("Start", 300, 200, 200, 50, BUTTON_COLOR)
-
-        if settings_button.collidepoint(mouse_x, mouse_y):
-            draw_button("Settings", 300, 300, 200, 50, HOVER_COLOR)
-        else:
-            draw_button("Settings", 300, 300, 200, 50, BUTTON_COLOR)
-
-        if quit_button.collidepoint(mouse_x, mouse_y):
-            draw_button("Exit", 300, 400, 200, 50, HOVER_COLOR)
-        else:
-            draw_button("Exit", 300, 400, 200, 50, BUTTON_COLOR)
+        draw_button("Start", 300, 200, 200, 50, HOVER_COLOR if start_button.collidepoint(mouse_x, mouse_y) else BUTTON_COLOR)
+        draw_button("Settings", 300, 300, 200, 50, HOVER_COLOR if settings_button.collidepoint(mouse_x, mouse_y) else BUTTON_COLOR)
+        draw_button("Exit", 300, 400, 200, 50, HOVER_COLOR if quit_button.collidepoint(mouse_x, mouse_y) else BUTTON_COLOR)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if start_button.collidepoint(event.pos):
-                    print(f"Game is starting! Difficulty: {selected_difficulty}")
                     game = Game(selected_difficulty, settings)
                     game.game_loop()
-
                 if settings_button.collidepoint(event.pos):
-                    print("Entering settings menu!")
                     settings_running = True
                     while settings_running:
                         for event in pygame.event.get():
@@ -97,7 +81,6 @@ def main_menu(selected_difficulty):
 
                     screen.fill(settings.background_color)
                     pygame.display.update()
-
                 if quit_button.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
