@@ -24,7 +24,7 @@ class Ball:
         self.dx = math.cos(math.radians(45)) * self.speed  # Початковий кут 45 градусів
         self.dy = -math.sin(math.radians(45)) * self.speed
         self.color = color
-        self.bonus_points = 0  # Початкові бали
+        self.bonus_points = 0
 
     def move(self, screen_width, screen_height, platform, wall):
         """
@@ -33,7 +33,7 @@ class Ball:
         self.x += self.dx
         self.y += self.dy
 
-        # Відбивання від стін (ліво/право)
+        # Відбивання від стін
         if self.x - self.radius <= 0 or self.x + self.radius >= screen_width:
             self.dx = -self.dx
 
@@ -44,26 +44,26 @@ class Ball:
         # Перевірка зіткнення з платформою
         if (platform.rect.y <= self.y + self.radius <= platform.rect.y + platform.rect.height and
                 platform.rect.x <= self.x <= platform.rect.x + platform.rect.width):
-            self.dy = -self.dy  # Відбивання
-            self.y = platform.rect.y - self.radius  # Виправлення позиції
+            self.dy = -self.dy
+            self.y = platform.rect.y - self.radius
 
         # Перевірка зіткнень із блоками
-        for block in wall.blocks[:]:  # Копія списку, щоб безпечно видаляти елементи
+        for block in wall.blocks[:]:
             if block.rect.x <= self.x <= block.rect.x + block.rect.width and block.rect.y <= self.y <= block.rect.y + block.rect.height:
-                self.dy = -self.dy  # Відбивання
-                wall.blocks.remove(block)  # Видалення блоку
-                self.bonus_points += block.points  # Додаємо бонуси
-                self.speed += 0.03  # Поступове збільшення швидкості
+                self.dy = -self.dy
+                wall.blocks.remove(block)
+                self.bonus_points += block.points
+                self.speed += 0.03
                 self.dx = math.copysign(self.speed, self.dx)
                 self.dy = math.copysign(self.speed, self.dy)
 
         if self.y > screen_height:
-            return False  # Гра закінчена
+            return False
 
-        if not wall.blocks:  # Якщо немає блоків
-            return "win"  # Перемога
+        if not wall.blocks:
+            return "win"
 
-        return True  # Гра триває
+        return True
 
     def draw(self, screen):
         """
@@ -71,6 +71,5 @@ class Ball:
         """
         pygame.draw.circle(screen, self.color, (int(self.x), int(self.y)), self.radius)
 
-        # Ефект світіння
         glow_color = (255, 255, 100)
         pygame.draw.circle(screen, glow_color, (int(self.x), int(self.y)), self.radius + 3, 1)
