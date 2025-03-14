@@ -24,6 +24,7 @@ class Game:
         pygame.display.set_caption("Arkanoid")
         self.paused = False
 
+        # Font for displaying score
         self.font = pygame.font.Font(None, 36)
 
     def process_input(self):
@@ -72,6 +73,7 @@ class Game:
         self.wall.draw(self.screen)
         self.ball.draw(self.screen)
 
+        # Draw the score on the screen
         score_text = self.font.render(f"Бали: {self.ball.bonus_points}", True, (255, 255, 255))
         self.screen.blit(score_text, (20, 20))
 
