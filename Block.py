@@ -7,7 +7,7 @@ class Block:
     Represents a single block in the game with a random color.
     """
 
-    def __init__(self, x, y, width=50, height=20, points=10):
+    def init(self, x, y, width=50, height=20, points=10):
         """
         Initializes a block with a random color.
         Parameters:

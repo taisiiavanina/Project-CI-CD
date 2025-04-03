@@ -10,7 +10,7 @@ class Settings:
     """
     Class to store and manage game settings.
     """
-    def __init__(self):
+    def init(self):
         """
         Initializes the settings with a default background color.
         """
@@ -29,7 +29,7 @@ class SettingsScreen:
     """
     Class to manage the settings screen.
     """
-    def __init__(self, screen, settings):
+    def init(self, screen, settings):
         """
         Initializes the settings screen with buttons and color palette.
         :param screen: The main game screen.
