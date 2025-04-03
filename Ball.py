@@ -7,7 +7,7 @@ class Ball:
     Class representing the ball in the game.
     """
 
-    def init(self, x, y, radius=8, speed=3, color=(255, 255, 0)):
+    def __init__(self, x, y, radius=8, speed=3, color=(255, 255, 0)):
         """
         Initializes the ball.
         :param x: Initial X position

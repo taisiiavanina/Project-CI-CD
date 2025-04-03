@@ -14,7 +14,7 @@ class Game:
     handling events, and updating the game state.
     """
 
-    def init(self, difficulty="easy", settings=None):
+    def __init__(self, difficulty="easy", settings=None):
         self.difficulty = difficulty
         self.settings = settings if settings else Settings()
         self.wall = Wall(difficulty)
