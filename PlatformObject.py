@@ -6,8 +6,8 @@ class PlatformObject:
     Represents the platform in the game.
     """
 
-    def __init__(self, x=400, y=550, width=100, height=10,
-                 speed=5, color=(255, 0, 0)):
+    def __init__(self, x=400, y=550, width=100,
+                 height=10, speed=5, color=(255, 0, 0)):
         """
         Initializes the platform.
         Parameters:
