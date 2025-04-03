@@ -1,11 +1,13 @@
 import pygame
 
+
 class PlatformObject:
     """
-    Represents the platform in the Arkanoid game.
+    Represents the platform in the game.
     """
 
-    def __init__(self, x=400, y=550, width=100, height=10, speed=5, color=(255, 0, 0)):
+    def __init__(self, x=400, y=550, width=100,
+                 height=10, speed=5, color=(255, 0, 0)):
         """
         Initializes the platform.
         Parameters:
@@ -32,8 +34,8 @@ class PlatformObject:
         """
         Moves the platform left or right within screen boundaries.
         Parameters:
-        direction (str): 'left' or 'right'.
-        screen_width (int): Width of the game screen to prevent moving out of bounds.
+        direction (str): left, right.
+        screen_width (int): Width of the game screen.
         """
         if direction == "left" and self.rect.left > 0:
             self.rect.x -= self.speed

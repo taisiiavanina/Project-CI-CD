@@ -1,6 +1,7 @@
 import pygame
 import random
 
+
 class Block:
     """
     Represents a single block in the game with a random color.
@@ -25,7 +26,8 @@ class Block:
         Returns:
         tuple: RGB color.
         """
-        return (random.randint(50, 255), random.randint(50, 255), random.randint(50, 255))
+        return (random.randint(50, 255), random.randint(50, 255),
+                random.randint(50, 255))
 
     def draw(self, screen):
         """

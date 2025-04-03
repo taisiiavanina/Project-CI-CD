@@ -1,5 +1,5 @@
-import pygame
 from Block import Block
+
 
 class Wall:
     """
@@ -41,12 +41,13 @@ class Wall:
             for col in range(cols):
                 x = col * (self.block_width + 10) + 10
                 y = row * (self.block_height + 10) + 50
-                self.blocks.append(Block(x, y, self.block_width, self.block_height))
-
+                self.blocks.append(Block(x, y,
+                                         self.block_width, self.block_height)
+                                   )
 
     def set_difficulty(self, difficulty):
         """
-        Changes the difficulty level and regenerates the blocks.
+        Changes the difficulty level, regenerates the blocks.
         Parameters:
         difficulty (str): New difficulty level ('easy', 'medium', 'hard').
         """

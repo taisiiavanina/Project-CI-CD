@@ -5,7 +5,6 @@ import math
 class Ball:
     """
     Class representing the ball in the game.
-    The ball moves, bounces off walls and the platform, destroys blocks, and increases speed over time.
     """
 
     def __init__(self, x, y, radius=8, speed=3, color=(255, 255, 0)):
@@ -21,8 +20,10 @@ class Ball:
         self.y = y
         self.radius = radius
         self.speed = speed
-        self.dx = math.cos(math.radians(45)) * self.speed  # Початковий кут 45 градусів
-        self.dy = -math.sin(math.radians(45)) * self.speed
+        self.dx = (math.cos
+                   (math.radians(45)) * self.speed)
+        self.dy = (-math.sin(math.radians(45))
+                   * self.speed)
         self.color = color
         self.bonus_points = 0
 
@@ -42,14 +43,18 @@ class Ball:
             self.dy = -self.dy
 
         # Перевірка зіткнення з платформою
-        if (platform.rect.y <= self.y + self.radius <= platform.rect.y + platform.rect.height and
-                platform.rect.x <= self.x <= platform.rect.x + platform.rect.width):
+        if (platform.rect.y <= self.y + self.radius
+                <= platform.rect.y + platform.rect.height and
+                platform.rect.x <= self.x <= platform.rect.x
+                + platform.rect.width):
             self.dy = -self.dy
             self.y = platform.rect.y - self.radius
 
-        # Перевірка зіткнень із блоками
         for block in wall.blocks[:]:
-            if block.rect.x <= self.x <= block.rect.x + block.rect.width and block.rect.y <= self.y <= block.rect.y + block.rect.height:
+            if (block.rect.x <= self.x
+                    <= block.rect.x + block.rect.width
+                    and block.rect.y <= self.y
+                    <= block.rect.y + block.rect.height):
                 self.dy = -self.dy
                 wall.blocks.remove(block)
                 self.bonus_points += block.points
@@ -67,9 +72,12 @@ class Ball:
 
     def draw(self, screen):
         """
-        Draws the ball on the screen.
+        Draws the ball.
         """
-        pygame.draw.circle(screen, self.color, (int(self.x), int(self.y)), self.radius)
+        pygame.draw.circle(screen, self.color,
+                           (int(self.x), int(self.y)), self.radius)
 
         glow_color = (255, 255, 100)
-        pygame.draw.circle(screen, glow_color, (int(self.x), int(self.y)), self.radius + 3, 1)
+        pygame.draw.circle(
+            screen, glow_color, (int(self.x), int(self.y)), self.radius + 3, 1
+        )
