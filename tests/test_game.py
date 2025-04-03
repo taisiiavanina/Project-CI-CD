@@ -2,10 +2,6 @@ import pytest
 import pygame
 from unittest.mock import MagicMock, patch
 from Game import Game
-from PlatformObject import PlatformObject
-from Ball import Ball
-from Wall import Wall
-from Settings import Settings
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -24,7 +20,7 @@ def test_game_initialization(difficulty):
     assert game.difficulty == difficulty
 
 @patch("pygame.display.set_mode", return_value=MagicMock())
-def test_render(mock_display, game_instance):
+def test_render(game_instance):
     """Tests if rendering methods are called correctly."""
     game_instance.screen = MagicMock()
     game_instance.screen.fill((0, 0, 0))
