@@ -5,11 +5,12 @@ BG_COLOR = (255, 240, 245)
 BUTTON_COLOR = (211, 211, 211)
 HOVER_COLOR = (192, 192, 192)
 
+
 class Settings:
     """
     Class to store and manage game settings.
     """
-    def __init__(self):
+    def init(self):
         """
         Initializes the settings with a default background color.
         """
@@ -23,11 +24,12 @@ class Settings:
         self.background_color = color
         print(f"Background color changed to {self.background_color}")
 
+
 class SettingsScreen:
     """
     Class to manage the settings screen.
     """
-    def __init__(self, screen, settings):
+    def init(self, screen, settings):
         """
         Initializes the settings screen with buttons and color palette.
         :param screen: The main game screen.
@@ -54,17 +56,19 @@ class SettingsScreen:
             (211, 211, 211)
         ]
 
-        self.palette_rects = [pygame.Rect(350 + i * 40, 200, 30, 30) for i in range(len(self.color_palette))]
+        self.palette_rects = [pygame.Rect(350 + i * 40, 200, 30, 30)
+                              for i in range(len(self.color_palette))]
 
         self.using_eyedropper = False
 
     def draw(self):
         """
-        Draws the settings screen, including buttons and the color palette.
+        Draws the settings screen.
         """
         self.screen.fill(self.settings.background_color)
         title = self.font.render("Settings", True, (0, 0, 0))
-        self.screen.blit(title, (self.screen.get_width() // 2 - title.get_width() // 2, 50))
+        self.screen.blit(title, (self.screen.get_width() // 2
+                                 - title.get_width() // 2, 50))
 
         for text, rect in self.buttons.items():
             pygame.draw.rect(self.screen, BUTTON_COLOR, rect)
@@ -75,7 +79,8 @@ class SettingsScreen:
             pygame.draw.rect(self.screen, self.color_palette[i], rect)
 
         if self.using_eyedropper:
-            hint = self.font.render("Click anywhere to pick a color!", True, (255, 0, 0))
+            hint = self.font.render("Click anywhere to pick a color!",
+                                    True, (255, 0, 0))
             self.screen.blit(hint, (200, 500))
 
         pygame.display.flip()
@@ -84,7 +89,7 @@ class SettingsScreen:
         """
         Handles user interactions with the settings screen.
         :param event: Pygame event instance.
-        :return: Returns "main_menu" if the back button is pressed, otherwise None.
+        :return: Returns "main_menu".
         """
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
@@ -102,7 +107,9 @@ class SettingsScreen:
 
             for i, rect in enumerate(self.palette_rects):
                 if rect.collidepoint(mouse_pos):
-                    self.settings.change_background_color(self.color_palette[i])
+                    self.settings.change_background_color(
+                        self.color_palette[i]
+                    )
                     self.screen.fill(self.settings.background_color)
                     pygame.display.flip()
 
@@ -137,8 +144,12 @@ def main():
                         main_menu = False
                         settings_menu = True
 
-            pygame.draw.rect(screen, BUTTON_COLOR, pygame.Rect(300, 250, 200, 50))
-            label = pygame.font.SysFont("Arial", 30).render("Settings", True, (0, 0, 0))
+            pygame.draw.rect(screen,
+                             BUTTON_COLOR, pygame.Rect(300, 250, 200, 50)
+                             )
+            label = pygame.font.SysFont("Arial", 30).render(
+                "Settings", True, (0, 0, 0)
+            )
             screen.blit(label, (350, 265))
 
             pygame.display.flip()
@@ -157,6 +168,7 @@ def main():
             settings_screen.draw()
             pygame.display.flip()
             clock.tick(60)
+
 
 if __name__ == "__main__":
     main()

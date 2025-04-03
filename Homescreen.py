@@ -4,7 +4,6 @@ from Game import Game
 from Settings import Settings
 from Settings import SettingsScreen
 from Complexity import Complexity
-from Wall import Wall
 
 pygame.init()
 
@@ -22,9 +21,9 @@ font = pygame.font.SysFont('Arial', 40)
 
 def draw_button(text, x, y, width, height, color):
     """
-    Draws a button on the screen with the specified text, position, size, and color.
+    Draws a button on the screen.
 
-    :param text: The text to display on the button.
+    :param text: The text on the button.
     :param x: The x-coordinate of the button.
     :param y: The y-coordinate of the button.
     :param width: The width of the button.
@@ -34,12 +33,13 @@ def draw_button(text, x, y, width, height, color):
     pygame.draw.rect(screen, color, (x, y, width, height))
     text_surface = font.render(text, True, (0, 0, 0))
     screen.blit(text_surface,
-                (x + (width - text_surface.get_width()) // 2, y + (height - text_surface.get_height()) // 2))
+                (x + (width - text_surface.get_width()) // 2,
+                 y + (height - text_surface.get_height()) // 2))
 
 
 def main_menu(selected_difficulty):
     """
-    Displays the main menu with options to start the game, access settings, or quit.
+    Displays the main menu.
     """
     clock = pygame.time.Clock()
     running = True
@@ -54,9 +54,15 @@ def main_menu(selected_difficulty):
         settings_button = pygame.Rect(300, 300, 200, 50)
         quit_button = pygame.Rect(300, 400, 200, 50)
 
-        draw_button("Start", 300, 200, 200, 50, HOVER_COLOR if start_button.collidepoint(mouse_x, mouse_y) else BUTTON_COLOR)
-        draw_button("Settings", 300, 300, 200, 50, HOVER_COLOR if settings_button.collidepoint(mouse_x, mouse_y) else BUTTON_COLOR)
-        draw_button("Exit", 300, 400, 200, 50, HOVER_COLOR if quit_button.collidepoint(mouse_x, mouse_y) else BUTTON_COLOR)
+        draw_button("Start", 300, 200, 200, 50, HOVER_COLOR
+                    if start_button.collidepoint(mouse_x, mouse_y)
+                    else BUTTON_COLOR)
+        draw_button("Settings", 300, 300, 200, 50, HOVER_COLOR
+                    if settings_button.collidepoint(mouse_x, mouse_y)
+                    else BUTTON_COLOR)
+        draw_button("Exit", 300, 400, 200, 50, HOVER_COLOR
+                    if quit_button.collidepoint(mouse_x, mouse_y)
+                    else BUTTON_COLOR)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -91,7 +97,7 @@ def main_menu(selected_difficulty):
 
 # The user first selects the difficulty level
 complexity = Complexity()
-complexity.select_difficulty()  # Method to select difficulty level
-selected_difficulty = complexity.get_difficulty()  # Get selected difficulty level
+complexity.select_difficulty()
+selected_difficulty = complexity.get_difficulty()
 
 main_menu(selected_difficulty)

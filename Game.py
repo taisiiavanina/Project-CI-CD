@@ -10,15 +10,19 @@ SCREEN_HEIGHT = 600
 
 class Game:
     """
-    Main game class responsible for initializing the window, handling events, and updating the game state.
+    Main game class responsible for initializing the window,
+    handling events, and updating the game state.
     """
 
-    def __init__(self, difficulty="easy", settings=None):
+    def init(self, difficulty="easy", settings=None):
         self.difficulty = difficulty
         self.settings = settings if settings else Settings()
         self.wall = Wall(difficulty)
         self.ball = Ball(x=400, y=300)
-        self.platform_object = PlatformObject(x=350, y=550, width=100, height=10, speed=7, color=(255, 0, 0))
+        self.platform_object = PlatformObject(
+            x=350, y=550, width=100, height=10,
+            speed=7, color=(255, 0, 0)
+        )
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Arkanoid")
@@ -39,30 +43,33 @@ class Game:
 
     def update_game_state(self):
         """
-        Updates game logic, such as platform movement and ball movement.
+        Updates game logic.
         """
-        status = self.ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, self.platform_object, self.wall)
+        status = self.ball.move(SCREEN_WIDTH, SCREEN_HEIGHT,
+                                self.platform_object, self.wall)
 
         if status == "win":
-            self.show_end_screen(f"Ви виграли! Бали: {self.ball.bonus_points}")
+            self.show_end_screen(f"Ви виграли! Бали: "
+                                 f"{self.ball.bonus_points}")
 
         elif not status:
-            self.show_end_screen(f"Гра закінчена! Бали: {self.ball.bonus_points}")
+            self.show_end_screen(f"Гра закінчена! "
+                                 f"Бали: {self.ball.bonus_points}")
 
     def show_end_screen(self, message):
         """
-        Displays the end game screen and returns to the menu after a delay.
+        Displays the end game screen.
         """
         self.screen.fill((0, 0, 0))
-        text = self.font.render(message, True, (255, 255, 255))
-        self.screen.blit(text, (SCREEN_WIDTH // 2 - text.get_width() // 2, SCREEN_HEIGHT // 2))
+        text = self.font.render(message,
+                                True, (255, 255, 255))
+        self.screen.blit(text,
+                         (SCREEN_WIDTH // 2 - text.get_width() // 2,
+                          SCREEN_HEIGHT // 2))
         pygame.display.flip()
-
         pygame.time.delay(3000)
-
         from Homescreen import main_menu
         main_menu(self.difficulty)
-
 
     def render(self):
         """
@@ -74,26 +81,30 @@ class Game:
         self.ball.draw(self.screen)
 
         # Draw the score on the screen
-        score_text = self.font.render(f"Бали: {self.ball.bonus_points}", True, (255, 255, 255))
+        score_text = self.font.render(f"Бали: {self.ball.bonus_points}",
+                                      True, (255, 255, 255))
         self.screen.blit(score_text, (20, 20))
 
         if self.paused:
             pause_font = pygame.font.Font(None, 74)
-            pause_text = pause_font.render("PAUSE", True, (255, 255, 255))
-            self.screen.blit(pause_text, (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2))
+            pause_text = pause_font.render("PAUSE",
+                                           True, (255, 255, 255))
+            self.screen.blit(pause_text,
+                             (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2))
 
         pygame.display.flip()
 
     def game_loop(self):
         """
-        Runs the main game loop, handling events, updating logic, and rendering the game.
+        Runs the main game loop.
         """
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                elif (event.type == pygame.KEYDOWN
+                      and event.key == pygame.K_SPACE):
                     self.paused = not self.paused
 
             if not self.paused:

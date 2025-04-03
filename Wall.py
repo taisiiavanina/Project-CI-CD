@@ -1,12 +1,12 @@
-import pygame
 from Block import Block
+
 
 class Wall:
     """
     Represents a collection of blocks forming a wall.
     """
 
-    def __init__(self, difficulty, block_width=50, block_height=20):
+    def init(self, difficulty, block_width=50, block_height=20):
         """
         Initializes the wall with default difficulty ('easy').
         Parameters:
@@ -24,7 +24,7 @@ class Wall:
         """
         Generates blocks based on the current difficulty.
         """
-        self.blocks.clear()  # Очистити блоки перед зміною складності
+        self.blocks.clear()
 
         if self.difficulty == "easy":
             rows = 3
@@ -35,18 +35,19 @@ class Wall:
         else:
             rows = 2  # Безпечний дефолт
 
-        cols = 800 // (self.block_width + 10)  # Кількість блоків по ширині
+        cols = 800 // (self.block_width + 10)
 
         for row in range(rows):
             for col in range(cols):
-                x = col * (self.block_width + 10) + 10  # Відступи між блоками
-                y = row * (self.block_height + 10) + 50  # Верхній відступ
-                self.blocks.append(Block(x, y, self.block_width, self.block_height))
-
+                x = col * (self.block_width + 10) + 10
+                y = row * (self.block_height + 10) + 50
+                self.blocks.append(Block(x, y,
+                                         self.block_width, self.block_height)
+                                   )
 
     def set_difficulty(self, difficulty):
         """
-        Changes the difficulty level and regenerates the blocks.
+        Changes the difficulty level, regenerates the blocks.
         Parameters:
         difficulty (str): New difficulty level ('easy', 'medium', 'hard').
         """
